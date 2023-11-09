@@ -7,7 +7,6 @@
   useradd -U -m -d /home/mantra -s /bin/bash mantra
   usermod -G sudo,sys,adm mantra 
   passwd
-  su mantra
   ```
 
 - Install required packages
@@ -18,6 +17,7 @@
   ```
 - Install the binary
   ```
+  su mantra && cd $HOME
   wget $BINARY_URL
   unzip mantrachaind-linux-amd64.zip
   rm mantrachaind-linux-amd64.zip
