@@ -11,7 +11,7 @@
   ```
   su mantra
   ```
-- Setup environment variables. Copy this block of text then paste into your terminal
+- Setup the environment variables. Edit as needed then copy this block of text and paste into your terminal
   ```
   MONIKER=
   MINIMUM_GAS_PRICE="0.0001uaum"
@@ -28,7 +28,7 @@
   APP_TOML="$HOME/.mantrad/config/app.toml"
   CONFIG_TOML="$HOME/.mantrad/config/config.toml"
   # Can be everything for a validator none for archive default or custom
-  PRUNING="everything"
+  PRUNING="default"
   ```
 - Install required packages
   ```
@@ -36,7 +36,6 @@
   sudo apt install lz4 unzip jq -y
   sudo wget -O /usr/lib/libwasmvm.x86_64.so https://github.com/CosmWasm/wasmvm/releases/download/v1.3.0/libwasmvm.x86_64.so
   ```
-- 
 - Install the binary
   ```
   su mantra && cd $HOME
