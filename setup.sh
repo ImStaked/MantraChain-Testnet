@@ -23,9 +23,6 @@ CONFIG_TOML="$HOME/.mantrad/config/config.toml"
 # Can be everything for a validator
 PRUNING="everything"
 
-########### END OF SETTINGS
-
-
 # Install Prerequisites
 sudo apt update && sudo apt upgrade -y
 sudo apt install lz4 unzip jq -y
@@ -58,7 +55,7 @@ s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"$SEEDS\"|" $CONFIG_TOML
 # Install the systemd service
 sudo cat <<EOF >> /etc/systemd/system/mantrad.service
 [Unit]
-Description=Mantra Validator
+Description=Mantra Node
 After=network-online.target
 
 [Service]
@@ -84,6 +81,4 @@ if curl -s --head curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar
   echo no have snap
 fi
 
-# Start the service
-systemctl start mantrad
-
+echo -e "You have completed the mantrad node setup to start your new node use:\n\n  systemctl start mantrad\n"
