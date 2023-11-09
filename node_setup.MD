@@ -16,6 +16,8 @@
   Then copy this block of text and paste into your terminal
   ```
   MONIKER=Testing
+  # External Address should be domain:port but can be ip:port or blank. Using domain:port allows both ipv4 and ipv6 name resolution
+  EXTERNAL_ADDR=""
   MINIMUM_GAS_PRICE="0.0001uaum"
   GENESIS_URL="https://testnet-files.itrocket.net/mantra/genesis.json"
   SEEDS="a9a71700397ce950a9396421877196ac19e7cde0@mantra-testnet-seed.itrocket.net:22656"
