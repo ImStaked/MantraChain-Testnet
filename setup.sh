@@ -2,7 +2,7 @@
 # Setup node on Testnet
 
 # Configuration
-MONIKER=ImStaked
+MONIKER=
 APP_TOML="$HOME/.mantrad/config/app.toml"
 CONFIG_TOML="$HOME/.mantrad/config/config.toml"
 BINARY_URL="https://testnet-files.itrocket.net/mantra/mantrachaind-linux-amd64.zip"
@@ -17,8 +17,8 @@ PRUNING="default"
 # Address to listen for incoming connections 
 MANTRA_ADDR="tcp://0.0.0.0:26656"
 # Address to advertise to peers so they can connect
-# Should be domain:port - "example.com:26656"
-MANTRA_EXTERNAL_ADDR="example.com:26656"
+# Should be domain:port but can be ip:port or blank
+MANTRA_EXTERNAL_ADDR=""
 # Enable Metrics
 ENABLE_METRICS=true
 METRICS_ADDR="0.0.0.0:26660"
@@ -53,10 +53,11 @@ s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"$SEEDS\"|" $CONFIG_TOML
 
 
 # Install the systemd service
-sudo <<EOF >> /etc/systemd/system/mantrad.service
+sudo cat <<EOF >> /etc/systemd/system/mantrad.service
 [Unit]
 Description=Mantra Validator
 After=network-online.target
+
 [Service]
 User=$USER
 WorkingDirectory=$HOME/.mantrad
@@ -64,9 +65,11 @@ ExecStart=/usr/local/bin/mantrad start --home $HOME/.mantrad
 Restart=on-failure
 RestartSec=5
 LimitNOFILE=65535
+
 [Install]
 WantedBy=multi-user.target
 EOF
+
 systemctl daemon-reload
 systemctl enable mantrad
 
@@ -80,4 +83,4 @@ fi
 
 # Start the service
 systemctl start mantrad
-# Start the node
+
