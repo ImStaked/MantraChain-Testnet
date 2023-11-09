@@ -15,12 +15,12 @@ MANTRA_ADDR="tcp://0.0.0.0:26656"
 MANTRA_EXTERNAL_ADDR=""
 
 BINARY_URL="https://testnet-files.itrocket.net/mantra/mantrachaind-linux-amd64.zip"
-GENISIS_URL="https://testnet-files.itrocket.net/mantra/genesis.json"
+GENESIS_URL="https://testnet-files.itrocket.net/mantra/genesis.json"
 CHAIN_ID="mantrachain-testnet-1"
 INDEXER="null"
 APP_TOML="$HOME/.mantrad/config/app.toml"
 CONFIG_TOML="$HOME/.mantrad/config/config.toml"
-# Can be everything for a validator
+# Can be everything for a validator none for archive default or custom
 PRUNING="everything"
 
 # Install Prerequisites
