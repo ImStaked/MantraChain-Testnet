@@ -27,8 +27,8 @@
   BINARY_URL="https://testnet-files.itrocket.net/mantra/mantrachaind-linux-amd64.zip"
   CHAIN_ID="mantrachain-testnet-1"
   INDEXER="null"
-  APP_TOML="$HOME/.mantrad/config/app.toml"
-  CONFIG_TOML="$HOME/.mantrad/config/config.toml"
+  APP_TOML="/home/mantra/.mantrad/config/app.toml"
+  CONFIG_TOML="/home/mantra/.mantrad/config/config.toml"
   # Can be everything for a validator none for archive default or custom
   PRUNING="everything"
   ```
@@ -40,7 +40,7 @@
   ```
 - Install the binary
   ```
-  cd $HOME
+  cd /home/mantra
   wget $BINARY_URL
   unzip mantrachaind-linux-amd64.zip
   rm mantrachaind-linux-amd64.zip
@@ -48,8 +48,8 @@
   ```
 - Initialize the node
   ```
-  mantrad init $MONIKER --chain-id $CHAIN_ID --home $HOME/.mantrad
-  wget -O $HOME/.mantrad/config/genesis.json $GENESIS_URL 
+  mantrad init $MONIKER --chain-id $CHAIN_ID --home /home/mantra/.mantrad
+  wget -O /home/mantra/.mantrad/config/genesis.json $GENESIS_URL 
   ```
 - Edit app.toml
   ```
@@ -78,9 +78,9 @@
   ```
 - Reset data and download snapshot from itrocket.net
   ```
-  mantrachaind tendermint unsafe-reset-all --home $HOME/.mantrachain
+  mantrachaind tendermint unsafe-reset-all --home /home/mantra/.mantrad
   if curl -s --head curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | head -n 1 | grep "200" > /dev/null; then
-    curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.mantrachain
+    curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | lz4 -dc - | tar -xf - -C /home/mantra/.mantrad
       else
     echo no have snap
   fi
@@ -95,8 +95,8 @@
   
   [Service]
   User=$USER
-  WorkingDirectory=$HOME/.mantrad
-  ExecStart=/usr/local/bin/mantrad start --home $HOME/.mantrad
+  WorkingDirectory=/home/mantra/.mantrad
+  ExecStart=/usr/local/bin/mantrad start --home /home/mantra/.mantrad
   Restart=on-failure
   RestartSec=5
   LimitNOFILE=65535
