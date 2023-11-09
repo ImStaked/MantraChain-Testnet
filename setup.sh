@@ -23,6 +23,9 @@ CONFIG_TOML="$HOME/.mantrad/config/config.toml"
 # Can be everything for a validator
 PRUNING="everything"
 
+########### END OF SETTINGS
+
+
 # Install Prerequisites
 sudo apt update && sudo apt upgrade -y
 sudo apt install lz4 unzip jq -y
