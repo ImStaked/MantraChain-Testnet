@@ -71,8 +71,6 @@ if curl -s --head curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar
   echo no have snap
 fi
 
-echo -e "You have completed the mantrad node setup to start your new node use:\n\n  systemctl start mantrad\n"
-
 # Install the systemd service
 sudo cat <<EOF >> /etc/systemd/system/mantrad.service
 [Unit]
@@ -94,4 +92,4 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable mantrad
 
-
+echo -e "You have completed the mantrad node setup to start your new node use:\n\n  systemctl start mantrad\n"
