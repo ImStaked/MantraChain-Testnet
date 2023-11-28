@@ -60,13 +60,13 @@ SYNC_TRUST_PERIOD="168h"
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$STATE_SYNC_RPC,$STATE_SYNC_RPC1\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$SYNC_BLOCK_HEIGHT| ; \
-s|^(trust_period[[:space:]]+=[[:space:]]+).*$|\1$SYNC_TRUST_PERIOD| ; \
+s|^(trust_period[[:space:]]+=[[:space:]]+).*$|\1\"$SYNC_TRUST_PERIOD\"| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$SYNC_BLOCK_HASH\"|" $CONFIG_TOML
 
 # reset and download snapshot from https://itrocket.net/services/testnet/mantra/installation/
-mantrad tendermint unsafe-reset-all --home $HOME/.mantrachain
+mantrad tendermint unsafe-reset-all --home $HOME/.mantrad
 if curl -s --head curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | head -n 1 | grep "200" > /dev/null; then
-  curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.mantrachain
+  curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.mantrad
     else
   echo no have snap
 fi
@@ -92,7 +92,5 @@ WantedBy=multi-user.target
 ```
 
 sudo systemctl daemon-reload
-sudo systemctl unmask mantrad
 sudo systemctl enable mantrad
-
-echo -e "You have completed the mantrad node setup to start your new node use:\n\n  systemctl start mantrad\n"
+sudo systemctl start mantrad
