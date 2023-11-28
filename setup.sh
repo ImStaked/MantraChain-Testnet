@@ -64,15 +64,17 @@ s|^(trust_period[[:space:]]+=[[:space:]]+).*$|\1$SYNC_TRUST_PERIOD| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$SYNC_BLOCK_HASH\"|" $CONFIG_TOML
 
 # reset and download snapshot from https://itrocket.net/services/testnet/mantra/installation/
-mantrachaind tendermint unsafe-reset-all --home $HOME/.mantrachain
+mantrad tendermint unsafe-reset-all --home $HOME/.mantrachain
 if curl -s --head curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | head -n 1 | grep "200" > /dev/null; then
   curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.mantrachain
     else
   echo no have snap
 fi
 
-# Install the systemd service
-sudo cat <<EOF >> /etc/systemd/system/mantrad.service
+# Install the systemd service   
+```sudo nano /lib/systemd/system/mantrad.service```
+- Change $USER and $HOME to desired settings
+``` 
 [Unit]
 Description=Mantra Node
 After=network-online.target
@@ -87,9 +89,10 @@ LimitNOFILE=65535
 
 [Install]
 WantedBy=multi-user.target
-EOF
+```
 
 sudo systemctl daemon-reload
+sudo systemctl unmask mantrad
 sudo systemctl enable mantrad
 
 echo -e "You have completed the mantrad node setup to start your new node use:\n\n  systemctl start mantrad\n"
