@@ -66,19 +66,20 @@
   ```
 - Configure state sync
   ```
-  STATE_SYNC_RPC="https://mantra-testnet-rpc.itrocket.net,https://rpc.mantra-testnet.imstaked.com:443"
+  STATE_SYNC_RPC="https://mantra-testnet-rpc.itrocket.net:443,https://mantra-testnet-rpc.itrocket.net:443"
   SYNC_BLOCK_HASH="68C1A657AE776DF75348EE11C15547051CF651CB8A7DC3F040AD795874161F23"
   SYNC_BLOCK_HEIGHT="23000"
   SYNC_TRUST_PERIOD="168h"
   sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
   s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$STATE_SYNC_RPC\"| ; \
   s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$SYNC_BLOCK_HEIGHT| ; \
-  s|^(trust_period[[:space:]]+=[[:space:]]+).*$|\1$SYNC_TRUST_PERIOD| ; \
+  s|^(trust_period[[:space:]]+=[[:space:]]+).*$|\1\"$SYNC_TRUST_PERIOD\"| ; \
   s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$SYNC_BLOCK_HASH\"|" $CONFIG_TOML
   ```
 - Reset data and download snapshot from itrocket.net
   ```
-  mantrachaind tendermint unsafe-reset-all --home /home/mantra/.mantrad
+  cp ~/.mantrad/data/priv_validator_state.json ~/priv_validator_state.json
+  mantrachaind tendermint unsafe-reset-all --home /home/mantra/.mantrad --keep-addr-book
   if curl -s --head curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | head -n 1 | grep "200" > /dev/null; then
     curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar.lz4 | lz4 -dc - | tar -xf - -C /home/mantra/.mantrad
       else
@@ -94,7 +95,7 @@
   After=network-online.target
   
   [Service]
-  User=$USER
+  User=mantra
   WorkingDirectory=/home/mantra/.mantrad
   ExecStart=/usr/local/bin/mantrad start --home /home/mantra/.mantrad
   Restart=on-failure
