@@ -10,10 +10,6 @@ ENABLE_METRICS=true
 METRICS_ADDR="0.0.0.0:26660"
 # Address to listen for incoming connections 
 MANTRA_ADDR="tcp://0.0.0.0:26656"
-# External Address to advertise to peers so they can connect
-# Should be domain:port but can be ip:port or blank
-MANTRA_EXTERNAL_ADDR=""
-
 BINARY_URL="https://testnet-files.itrocket.net/mantra/mantrachaind-linux-amd64.zip"
 GENESIS_URL="https://testnet-files.itrocket.net/mantra/genesis.json"
 CHAIN_ID="mantrachain-testnet-1"
