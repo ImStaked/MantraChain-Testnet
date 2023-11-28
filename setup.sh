@@ -71,14 +71,17 @@ if curl -s --head curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar
   echo no have snap
 fi
 
-# Install the systemd service   
+# Install the systemd service 
+##########################################
+# note: change user and home dir if needed
+##########################################
 sudo bash -c 'cat <<EOF >> /etc/systemd/system/mantrad.service
 [Unit]
 Description=Mantra Node
 After=network-online.target
 
 [Service]
-User=$USER
+User=mantra
 WorkingDirectory=/home/mantra/.mantrad
 ExecStart=/usr/local/bin/mantrad start --home /home/mantra/.mantrad
 Restart=on-failure
