@@ -72,16 +72,13 @@ if curl -s --head curl https://testnet-files.itrocket.net/mantra/snap_mantra.tar
 fi
 
 # Install the systemd service   
-
-```sudo nano /lib/systemd/system/mantrad.service```
-# Change $USER and $HOME to desired settings
-``` 
+sudo bash -c 'cat <<EOF >> /etc/systemd/system/mantrad.service
 [Unit]
 Description=Mantra Node
 After=network-online.target
 
 [Service]
-User=mantra
+User=$USER
 WorkingDirectory=/home/mantra/.mantrad
 ExecStart=/usr/local/bin/mantrad start --home /home/mantra/.mantrad
 Restart=on-failure
@@ -90,7 +87,8 @@ LimitNOFILE=65535
 
 [Install]
 WantedBy=multi-user.target
-```
+EOF'
+
 
 sudo systemctl daemon-reload
 sudo systemctl enable mantrad
